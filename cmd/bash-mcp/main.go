@@ -72,10 +72,15 @@ func main() {
 
 		handleRequest(&req)
 	}
+	
+	if err := scanner.Err(); err != nil {
+		fmt.Fprintf(os.Stderr, "reading standard input: %v\n", err)
+	}
 }
 
 func handleRequest(req *Request) {
-	if req.Method == "initialize" {
+	switch req.Method {
+	case "initialize":
 		sendResult(req.Id, InitializeResult{
 			ProtocolVersion: "2024-11-05",
 			ServerInfo: struct {
@@ -86,7 +91,7 @@ func handleRequest(req *Request) {
 				Tools struct{} `json:"tools"`
 			}{Tools: struct{}{}},
 		})
-	} else if req.Method == "tools/list" {
+	case "tools/list":
 		sendResult(req.Id, map[string]interface{}{
 			"tools": []Tool{
 				{
@@ -115,7 +120,7 @@ func handleRequest(req *Request) {
 				},
 			},
 		})
-	} else if req.Method == "tools/call" {
+	case "tools/call":
 		var params struct {
 			Name      string `json:"name"`
 			Arguments struct {
@@ -150,7 +155,7 @@ func handleRequest(req *Request) {
 		} else {
 			sendError(req.Id, -32601, "Tool not found")
 		}
-	} else {
+	default:
         // Just return an empty response for unhandled things
         if len(req.Id) > 0 {
 		    sendResult(req.Id, map[string]interface{}{})

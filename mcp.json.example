@@ -1,8 +1,0 @@
-{
-  "mcpServers": {
-    "pi-bash": {
-      "command": "ssh",
-      "args": ["pi@<YOUR_PI_IP>", "/path/to/compiled/bash-mcp"]
-    }
-  }
-}
