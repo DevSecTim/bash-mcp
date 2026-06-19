@@ -1,6 +1,6 @@
 {
   "recommendations": [
     "golang.go",
-    "google.antigravity-ide"
+    "ms-vscode-remote.remote-ssh"
   ]
 }

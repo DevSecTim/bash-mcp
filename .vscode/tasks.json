@@ -1,0 +1,15 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Deploy MCP to Pi",
+      "type": "shell",
+      "command": "GOOS=linux GOARCH=arm64 go build -o bin/bash-mcp main.go && scp bin/bash-mcp tim@cinema-pi.local:/home/tim/Workspace/github.com/DevSecTim/bash-mcp/bin/bash-mcp",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": ["$go"]
+    }
+  ]
+}
